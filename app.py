@@ -1,6 +1,10 @@
 import random
 import streamlit as st
 
+# issues:
+# 1. went down to 1 as a guess but still lower, guess number under 1 but instructs to guess between 1 and 100
+# 2. there was 1 attempt left but said it was out of attempts and gave answer
+# 3. new game worked but its not letting me guess numbers anymore
 def get_range_for_difficulty(difficulty: str):
     if difficulty == "Easy":
         return 1, 20
@@ -35,9 +39,9 @@ def check_guess(guess, secret):
 
     try:
         if guess > secret:
-            return "Too High", "📈 Go HIGHER!"
+            return "Too High", "📉 Go LOWER!"
         else:
-            return "Too Low", "📉 Go LOWER!"
+            return "Too Low", "📈 Go HIGHER!"
     except TypeError:
         g = str(guess)
         if g == secret:
