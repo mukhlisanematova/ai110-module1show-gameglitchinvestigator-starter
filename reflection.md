@@ -8,7 +8,7 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 - List at least two concrete bugs you noticed at the start  
   (for example: "the secret number kept changing" or "the hints were backwards").
   # 1. Fixed - went down to 1 as a guess but still lower, guess number under 1 but instructs to guess between 1 and 100
-  # 2. there was 1 attempt left but said it was out of attempts and gave answer
+  # 2. there was 1 attempt left but said it was out of attempts and gave the answer
   # 3. the new game button doesnt reset the game after you have won, if you click reset before you win it does reset the game. 
   - Also, new game always generated a secret number in the range 1–100 regardless of difficulty, because it used `random.randint(1, 100)` instead of `random.randint(low, high)`. Fixed by replacing the hardcoded values with the `low` and `high` variables already computed from the selected difficulty.
   # 4. also when you first attempt a guess it does not decrease the number of attempts left until you click the guess button again
@@ -38,9 +38,11 @@ Yes - it helped me understand how to write pytest cases and what to test for.
 ## 4. What did you learn about Streamlit and state?
 
 - In your own words, explain why the secret number kept changing in the original app.
+The secret number kept changing in the original app because it was being generated inside a function that was called on every rerun of the app. 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
+In Streamlit, every time you interact with the app (like clicking a button), it causes the entire script to rerun from top to bottom. Since the secret number was generated during this rerun, it would change every time you clicked "Submit" or interacted with the app in any way, making it impossible to win the game.
 - What change did you make that finally gave the game a stable secret number?
-
+I used Streamlit's session state to store the secret number, ensuring that it remains consistent across reruns of the app.
 ---
 
 ## 5. Looking ahead: your developer habits
@@ -48,4 +50,6 @@ Yes - it helped me understand how to write pytest cases and what to test for.
 - What is one habit or strategy from this project that you want to reuse in future labs or projects?
   - This could be a testing habit, a prompting strategy, or a way you used Git.
 - What is one thing you would do differently next time you work with AI on a coding task?
+  - I would use AI to help me understand the code and make a plan before I start making changes, rather than jumping straight into fixing the code.
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+  - This project made me realize the importance of understanding the code that AI generates and critically evaluating it before relying on it, especially in interactive applications like Streamlit where state management is crucial.

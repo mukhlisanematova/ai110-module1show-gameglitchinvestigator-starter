@@ -26,13 +26,16 @@ It wrote the code, ran away, and now the game is unplayable.
 ## 📝 Document Your Experience
 
 - [ ] Describe the game's purpose.
+The game's purpose is to guess a secret number between a certain range within a limited number of attempts. The game provides hints whether the guess is too high or too low and keeps track of the number of attempts left. The player wins by guessing the secret number correctly within the allowed attempts.
 - [ ] Detail which bugs you found.
+1. The secret number kept changing every time I clicked the "Submit" button, which made it impossible to win the game.
+2. The hints provided by the game were incorrect, telling me to guess higher when I needed to guess lower and vice versa.
+3. The "New Game" button did not reset the game after I had won, allowing me to continue guessing without starting a new game.
 - [ ] Explain what fixes you applied.
+1. I fixed the issue with the secret number changing by using Streamlit's session state to store the secret number, ensuring that it remains consistent across reruns of the app.
+2. I corrected the logic for the hints by ensuring that the conditions for providing "Higher" or "Lower" hints were based on the actual comparison between the guess and the secret number.
+3. I modified the "New Game" button functionality to reset the game state, including generating a new secret number and resetting the attempts left, regardless of whether the player had won or not.
 
 ## 📸 Demo
 
-- [ ] [Insert a screenshot of your fixed, winning game here]
-
-## 🚀 Stretch Features
-
-- [ ] [If you choose to complete Challenge 4, insert a screenshot of your Enhanced Game UI here]
+- [![alt text](image.png)]
