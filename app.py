@@ -1,5 +1,6 @@
 import random
 import streamlit as st
+from logic_utils import check_guess
 
 # issues:
 # Done-1. went down to 1 as a guess but still lower, guess number under 1 but instructs to guess between 1 and 100
@@ -33,14 +34,7 @@ def parse_guess(raw: str):
     return True, value, None
 
 
-def check_guess(guess, secret):
-    if guess == secret:
-        return "Win", "🎉 Correct!"
-    if guess > secret:
-        return "Too High", "📉 Go LOWER!"
-    return "Too Low", "📈 Go HIGHER!"
-
-
+# FIXME: logic with score updating is incorrect
 def update_score(current_score: int, outcome: str, attempt_number: int):
     if outcome == "Win":
         points = 100 - 10 * (attempt_number + 1)
@@ -102,7 +96,7 @@ st.subheader("Make a guess")
 
 st.info(
     f"Guess a number between 1 and 100. "
-    f"Attempts left: {attempt_limit - st.session_state.attempts}"
+    f"Attempts left: {attempt_limit - st.session_state.attempts}" # FIXME: Logic of attempt subtraction is incorrect
 )
 
 with st.expander("Developer Debug Info"):
@@ -127,7 +121,8 @@ with col3:
 
 if new_game:
     st.session_state.attempts = 0
-    st.session_state.secret = random.randint(1, 100)
+    st.session_state.secret = random.randint(low, high)
+    st.session_state.status = "playing"
     st.success("New game started.")
     st.rerun()
 
@@ -149,7 +144,7 @@ if submit:
     else:
         st.session_state.history.append(guess_int)
 
-        
+
         secret = st.session_state.secret
 
         outcome, message = check_guess(guess_int, secret)
